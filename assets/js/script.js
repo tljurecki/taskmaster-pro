@@ -44,9 +44,76 @@ var loadTasks = function() {
 var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
+$(".list-group").on("click", "p" , function(){
+    var text = $(this)
+    .text()
+    .trim();
+    console.log(text);
+});
 
+$(".list-group").on("blur" , "textarea" , function() {
+    var text = $(this)
+    .val()
+    .trim();
+    var status = $(this)
+    .closest(".list-group")
+    .attr("id")
+    .replace("list-" , "");
+    var index = $(this)
+    .closest(".list-group-item")
+    .index();
+    var taskP = $("<p>")
+    .addClass("m-1")
+    .text(text);
 
+    $(this).replaceWith(taskP);
+});
+var textInput =$("<text-area>")
+.addClass("form-control")
+.val(text);
 
+$(this).replaceWith(textInput);
+
+textInput.trigger("focus");
+
+$(".list-group").on("click", "span", function() {
+    var date =$(this)
+    .text()
+    .trim();
+
+    var dataInput = $("<input>")
+    .attr("type", "text")
+    .addClass("form-control")
+    .val(date);
+
+    $(this).replaceWith(dataInput);
+
+    dataInput.trigger("focus");
+});
+
+$(".list-group").on("blur" , "input[type='text']" , function() {
+    var date = $(this)
+    .val()
+    .trim();
+
+    var status = $(this)
+    .closest(".list-group")
+    .attr("id")
+    .replace("list-" , "");
+
+    var index = $(this)
+    .closest(".list-group-item")
+    .index();
+    
+    tasks[status][index].date = date;
+    saveTasks();
+
+    var taskSpan = $("<span>")
+    .addClass("badge badge-primary badge-pill")
+    .text(date);
+
+    $(this).replaceWith(taskSpan);
+});
 
 // modal was triggered
 $("#task-form-modal").on("show.bs.modal", function() {
