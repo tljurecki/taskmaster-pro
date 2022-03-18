@@ -51,7 +51,7 @@ var auditTask = function(taskEl) {
   .text()
   .trim();
  
-var time = moment(date, "L").set("hour" , 17);
+var time = moment(date, "L").set("hour", 17);
 
 $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
 
